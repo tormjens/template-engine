@@ -2,6 +2,15 @@
 
 /**
  * Template Engine for WordPress Plugins
+ *
+ * A class for including templating/theming in your WordPress Plugin.
+ *
+ * @package WordPress
+ * 
+ * @link http://smartmedia.no
+ * @author Tor Morten Jensen / Smart Media AS
+ *
+ * @version 1.0.0
  */
 if(!class_exists('Smart_Template_Engine')) {
 
