@@ -242,9 +242,9 @@ if(!class_exists('Smart_Template_Engine')) {
 		 * @since 1.0.0
 		 * 
 		 * @param  array $template_names An array with template files to find.
-		 * @param  array $type Optional. What kind of return you want ('dir' or 'url').
-		 * @param  array $load Optional. Whether or not to load the template file.
-		 * @param  array $require_once Optional. If we are to use require_once or include.
+		 * @param  string $type Optional. What kind of return you want ('dir' or 'url').
+		 * @param  boolean $load Optional. Whether or not to load the template file.
+		 * @param  boolean $require_once Optional. If we are to use require_once or include.
 		 * @return string The located files path or URL depending on what you set in $type.
 		 */
 		
@@ -460,14 +460,34 @@ if(!class_exists('Smart_Template_Engine')) {
 	}
 
 }
+/**
+ * Get a template.
+ *
+ * Find a template and load it, just like the WordPress get_template_part()-function.
+ *
+ * @since 1.0.0
+ * 
+ * @param object $engine The instance of your template engine.
+ * @param string $slug The slug of the file.
+ * @param string $name Optional. The name of the file.
+ * @param boolean $include Optional. If we are loading the file.
+ * @param boolean $require_once Optional. If we are requiring the file.
+ */
 
-if(!function_exists('smart_get_template')) {
-	function smart_get_template($engine, $template, $include = true, $require_once = false) {
+if(!function_exists('smart_get_template_part')) {
+	function smart_get_template_part($engine, $slug, $name = null, $include = true, $require_once = true) {
 
-		if(is_object($engine))
-			$located = $engine->locate( array($template) );
-		else
-			return false;
+		if(!is_object($engine))
+			return;
+
+		$templates = array();
+		$name = (string) $name;
+		if ( '' !== $name )
+			$templates[] = "{$slug}-{$name}.php";
+
+		$templates[] = "{$slug}.php";
+
+		$located = $engine->locate( $templates );
 
 		if($include)
 			load_template( $located, $require_once );
