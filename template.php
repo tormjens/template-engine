@@ -271,7 +271,7 @@ if(!class_exists('Smart_Template_Engine')) {
 
 			// if the first parameter is not an array, break function
 		    if ( !is_array($template_names) )
-		        return '';
+		        $template_names = array();
 
 		    // empty return string
 		    $located = '';
