@@ -170,6 +170,9 @@ if(!class_exists('Smart_Template_Engine')) {
 			$this->taxonomies = $taxonomies; // the taxonomy templates
 			$this->archives = $archives; // the archive templates
 			$this->styles = $styles; // the stylesheets
+			
+			// register as global
+			$GLOBALS['engine'. $slug] = $this;
 
 		}
 
